@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
 	"log"
 	"math"
@@ -19,6 +20,11 @@ type amberHandler struct {
 }
 
 func main() {
+	serveAmber(8082)
+}
+
+func serveAmber(port int) {
+	fmt.Println(port)
 	template, err := mustache.ParseFile("AmberTemplate.html.ms")
 	if err != nil {
 		panic(err)
@@ -27,7 +33,7 @@ func main() {
 
 		http.Handle("/", &handler)
 
-		log.Fatal(http.ListenAndServe(":8082", nil))
+		log.Fatal(http.ListenAndServe(":"+strconv.Itoa(port), nil))
 	}
 }
 
